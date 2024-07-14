@@ -1,6 +1,6 @@
 const zod = require("zod")
 
-const singupSchema = zod.object({
+const signupSchema = zod.object({
     firstName: zod.string(),
     lastName: zod.string(),
     email: zod.string().email().endsWith("@gmail.com"),
@@ -12,4 +12,4 @@ const signinSchema = zod.object({
     password: zod.string().min(5)
 })
 
-module.exports = {singupSchema, signinSchema}
+module.exports = {signupSchema, signinSchema}
