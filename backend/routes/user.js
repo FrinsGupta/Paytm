@@ -39,8 +39,8 @@ router.post("/signup", async (req, res) => {
     const amount = await Account.create({
       email: payload.email,
       // balance: 1+ Math.random*10000
-      balance: 10000
-    })
+      balance: 10000,
+    });
 
     res.json({ data, amount });
   } catch (err) {
@@ -75,24 +75,48 @@ router.post("/signin", async (req, res) => {
   });
 });
 
-router.put("/",authMiddleware,async(req,res)=>{
-     const update = await User.updateOne({
-      email: req.email
-     },
-      req.body
-     )
-     res.json({msg: "Update Successful"})
-})
+router.put("/", authMiddleware, async (req, res) => {
+  const update = await User.updateOne(
+    {
+      email: req.email,
+    },
+    req.body
+  );
+  res.json({ msg: "Update Successful" });
+});
 
 router.get("/", authMiddleware, async (req, res) => {
-  const response = await User.findOne({
-    email: req.email,
+  const filter = req.query.filter || "";
+
+  const users = await User.find({
+    $or: [
+      {
+        firstName: {
+          $regex: filter,
+        },
+      },
+      {
+        lastName: {
+          $regex: filter,
+        },
+      },
+    ],
   });
-  if (response) {
-    res.json({ response });
-  } else {
-    res.json({ msg: "Cannot add data" });
-  }
+
+  res.json({user: users.map(user=>{
+    firstName: user.firstName;
+    lastName: user.lastName;
+    email: user.email
+  })})
+
+  // const response = await User.findOne({
+  //   email: req.email,
+  // });
+  // if (response) {
+  //   res.json({ response });
+  // } else {
+  //   res.json({ msg: "Cannot add data" });
+  // }
 });
 
 module.exports = router;
