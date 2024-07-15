@@ -75,7 +75,16 @@ router.post("/signin", async (req, res) => {
   });
 });
 
-router.get("/user", authMiddleware, async (req, res) => {
+router.put("/",authMiddleware,async(req,res)=>{
+     const update = await User.updateOne({
+      email: req.email
+     },
+      req.body
+     )
+     res.json({msg: "Update Successful"})
+})
+
+router.get("/", authMiddleware, async (req, res) => {
   const response = await User.findOne({
     email: req.email,
   });
