@@ -5,12 +5,15 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middleware");
 require("dotenv").config();
 const router = express.Router();
+const mongoose = require("mongoose");
 
 const JWT_KEY = process.env.JWT_KEY;
 
+// SIGN UP 
 router.post("/signup", async (req, res) => {
   const payload = req.body;
   const response = signupSchema.safeParse(payload);
+  const session = await mongoose.startSession();
 
   if (!response.success) {
     return res.status(411).json({
@@ -28,33 +31,50 @@ router.post("/signup", async (req, res) => {
     });
   }
 
+  session.startTransaction();
   try {
-    const data = await User.create({
+    const data = await User.create([
+      {
       firstName: payload.firstName,
       lastName: payload.lastName,
       email: payload.email,
       password: payload.password,
-    });
+    },
+  ],
+  {session}
+);
 
-    const amount = await Account.create({
+    const email = req.body.email;
+
+    const token = jwt.sign({ email }, JWT_KEY);
+
+    const amount = await Account.create([{
       email: payload.email,
       // balance: 1+ Math.random*10000
       balance: 10000,
-    });
+    },
+  ],{session});
 
-    res.json({ data, amount });
+    res.json({
+      msg: "Successfully Signed Up",
+      success: true,
+      token: token,
+    });
   } catch (err) {
-    // res.json(err);
-    // console.log(err);
-    res.json({ msg: "Cannot add data" });
+    await session.abortTransaction();
+    console.log(err);
+    res.json({ msg: "Cannot add data", err: err });
+    return
   }
+  await session.commitTransaction();
 });
 
+// SIGN IN
 router.post("/signin", async (req, res) => {
   const { success } = signinSchema.safeParse(req.body);
   const { email, password } = req.body;
 
-  if (success) {
+  if (!success) {
     return res.status(411).json({
       msg: "Incorrect Inputs",
     });
@@ -66,8 +86,12 @@ router.post("/signin", async (req, res) => {
   });
 
   if (user) {
-    const jwtToken = jwt.sign({ email }, JWT_KEY);
-    return res.json({ jwtToken });
+    const token = jwt.sign({ email }, JWT_KEY);
+    return res.json({
+      msg: "Successfully Signed In",
+      success: true,
+      token: token,
+    });
   }
 
   res.status(411).json({
@@ -75,6 +99,7 @@ router.post("/signin", async (req, res) => {
   });
 });
 
+// UPDATE ROUTE
 router.put("/", authMiddleware, async (req, res) => {
   const update = await User.updateOne(
     {
@@ -85,10 +110,21 @@ router.put("/", authMiddleware, async (req, res) => {
   res.json({ msg: "Update Successful" });
 });
 
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/",authMiddleware,async(req,res)=>{
+  const response = await User.findOne({
+    email: req.email
+  })
+  console.log(response);
+  res.json({response})
+})
+
+// GET ROUTE
+router.get("/bulk", authMiddleware, async (req, res) => {
   const filter = req.query.filter || "";
 
-  const users = await User.find({
+  const users = await User.find();
+
+  const filteredUsers = await User.find({
     $or: [
       {
         firstName: {
@@ -103,20 +139,15 @@ router.get("/", authMiddleware, async (req, res) => {
     ],
   });
 
-  res.json({user: users.map(user=>{
-    firstName: user.firstName;
-    lastName: user.lastName;
-    email: user.email
-  })})
+  res.json({users,filteredUsers})
 
-  // const response = await User.findOne({
-  //   email: req.email,
-  // });
-  // if (response) {
-  //   res.json({ response });
-  // } else {
-  //   res.json({ msg: "Cannot add data" });
-  // }
+// res.json({user: users.map(user=>({
+//   _id: user._id,
+//   firstName: user.firstName,
+//   lastName: user.lastName,
+//   email: user.email
+// }))})
+
 });
 
 module.exports = router;

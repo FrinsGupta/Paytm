@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
+// const Users = ({name}) => {
 const Users = () => {
   return (
     <div>
@@ -13,9 +14,9 @@ const Users = () => {
       <div className="flex justify-between mx-8 items-center bg-gray-200 rounded-xl ">
         <div className="flex items-center">
           <button className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1  mx-4">
-            U
+            {/* {name.charAt(0)} */}
           </button>
-          <p className=" font-semibold text-xl"> User 1</p>
+          {/* <p className=" font-semibold text-xl"> {name}</p> */}
         </div>
         <div className="flex items-center">
           <Button btname={"Send Money"} />
