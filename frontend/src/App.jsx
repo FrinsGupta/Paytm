@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import Dashboard from './pages/Dashboard'
 import Send from './pages/Send'
+import Success from './pages/Success'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +20,7 @@ function App() {
         <Route path={"/signin"} element={<SignIn/>} />
         <Route path={"/dashboard"} element={<Dashboard/>} />
         <Route path={"/send"} element={<Send/>} />
+        <Route path={"/success"} element={<Success/>} />
       </Routes>
       </BrowserRouter>
     </>

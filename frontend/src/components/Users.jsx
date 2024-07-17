@@ -1,25 +1,23 @@
 import React from "react";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
-// const Users = ({name}) => {
-const Users = () => {
+
+const Users = ({name,email}) => {
+  const navigate = useNavigate();
   return (
-    <div>
-      <div className='mx-8 my-6 flex font-bold text-2xl'>
-      Users
-    </div>
-      <div className="mx-8">
-      <input className=' w-full mb-8 border-2 py-2 pl-3 rounded-md' type="number" name="" id="" placeholder="Search users..." />
-      </div>
+    <div className="my-6">
       <div className="flex justify-between mx-8 items-center bg-gray-200 rounded-xl ">
         <div className="flex items-center">
           <button className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1  mx-4">
-            {/* {name.charAt(0)} */}
+            {name.charAt(0)}
           </button>
-          {/* <p className=" font-semibold text-xl"> {name}</p> */}
+          <p className=" font-semibold text-xl"> {name}</p>
         </div>
         <div className="flex items-center">
-          <Button btname={"Send Money"} />
+          <Button btname={"Send Money"} onClick={(e)=>{
+            navigate(`/send?email=${email}&name=${name}`)
+          }} />
         </div>
       </div>
     </div>
