@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from 'axios'
 import AppBar from "../components/AppBar";
 import Balance from "../components/Balance";
@@ -15,7 +15,20 @@ export default function () {
   const [searchParams] = useSearchParams();
   const name = searchParams.get("name")
   const email = searchParams.get("email")
-  // console.log(reRender);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/signin');
+    }
+  }, [navigate]);
+  console.log(reRender);
+
+  if (!name || !email) {
+   return navigate('/signin')
+    // return <div>Loading...</div>; // or handle the case when name or email is not present
+  }
+  
   return (
   <>
   <AppBar/>

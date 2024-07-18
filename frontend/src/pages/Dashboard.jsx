@@ -5,12 +5,22 @@ import Users from "../components/Users";
 import axios from "axios";
 import { useEffect } from "react";
 import UserSearch from "../components/UserSearch";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
   const [filter, setFilter] = useState("");
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [friendName, setFriendName] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/signin');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     axios
