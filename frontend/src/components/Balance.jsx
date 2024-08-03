@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { useEffect } from 'react';
+import { BackendUrl } from '../../config';
 
 const Balance = ({render}) => {
   const [balance, setBalance] = useState(0)
