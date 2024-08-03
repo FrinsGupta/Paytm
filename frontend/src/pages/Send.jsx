@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import axios from 'axios'
 import AppBar from "../components/AppBar";
 import Balance from "../components/Balance";
+import { BackendUrl } from "../../config";
 
 
 export default function () {
@@ -50,7 +51,7 @@ export default function () {
         />
 
         <Button btname={"Initiate Transfer"} onClick={async(e)=>{
-            await axios.post("http://localhost:3000/api/v1/account/transfer",{
+            await axios.post(`${BackendUrl}/api/v1/account/transfer`,{
               to: email,
               amount: amount
             },{

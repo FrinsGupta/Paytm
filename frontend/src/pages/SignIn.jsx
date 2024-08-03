@@ -1,3 +1,4 @@
+import { BackendUrl } from "../../config";
 import BottomWarning from "../components/BottomWarning";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
@@ -31,7 +32,7 @@ export default function () {
                     onChange={e=> setPassword(e.target.value)}
                 />
                 <Button btname={"Sign In"} onClick={async()=>{
-                   const response = await axios.post("http://localhost:3000/api/v1/user/signin",{
+                   const response = await axios.post(`${BackendUrl}/api/v1/user/signin`,{
                         email,
                         password
                     })

@@ -6,6 +6,7 @@ import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BackendUrl } from "../../config";
 
 export default function () {
     const [firstName, setFirstName] = useState("");
@@ -36,7 +37,7 @@ export default function () {
                     onChange={e=> setPassword(e.target.value)}
                 />
                 <Button btname={"Sign Up"} onClick={async()=>{
-                  const response = await axios.post("http://localhost:3000/api/v1/user/signup",{
+                  const response = await axios.post(`${BackendUrl}/api/v1/user/signup`,{
                         firstName,
                         lastName,
                         email,

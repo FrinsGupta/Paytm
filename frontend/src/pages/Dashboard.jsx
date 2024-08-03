@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import UserSearch from "../components/UserSearch";
 import { useNavigate } from "react-router-dom";
+import { BackendUrl } from "../../config";
 
 export default function () {
   const [filter, setFilter] = useState("");
@@ -24,7 +25,7 @@ export default function () {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`, {
+      .get(`${BackendUrl}/api/v1/user/bulk?filter=${filter}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

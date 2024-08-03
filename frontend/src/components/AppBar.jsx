@@ -3,13 +3,14 @@ import Heading from "./Heading";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { BackendUrl } from "../../config";
 
 const AppBar = () => {
   const [name, setName] = useState("");
   const token = localStorage.getItem('token');
   const navigate = useNavigate()
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/user`,{
+    axios.get(`${BackendUrl}/api/v1/user`,{
       headers: {
         Authorization: `Bearer ${token}`
       }
