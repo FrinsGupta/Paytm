@@ -6,14 +6,7 @@ const cors = require("cors");
 
 const port = process.env.PORT
 
-const corsOptions = {
-    origin: 'https://e-wallet-app-three.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // if you need to handle cookies or HTTP authentication
-  };
-
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(express.json());
 app.use(bodyParser.json());
