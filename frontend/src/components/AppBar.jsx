@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import Heading from "./Heading";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AppBar = () => {
   const [name, setName] = useState("");
   const token = localStorage.getItem('token');
+  const navigate = useNavigate()
   useEffect(() => {
     axios.get(`http://localhost:3000/api/v1/user`,{
       headers: {
@@ -23,7 +25,10 @@ const AppBar = () => {
         </div>
         <div className="flex items-center">
           <p className=" font-semibold text-xl">Hello, {name}</p>
-          <button className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1 ml-4">
+          <button onClick={()=>{
+            localStorage.removeItem('token')
+            navigate('/')
+            }} className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1 ml-4">
             {name.charAt(0)}
           </button>
         </div>

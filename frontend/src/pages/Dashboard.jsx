@@ -18,7 +18,7 @@ export default function () {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/signin');
+      navigate('/');
     }
   }, [navigate]);
 
