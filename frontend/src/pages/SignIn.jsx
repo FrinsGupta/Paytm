@@ -35,11 +35,15 @@ export default function () {
                    const response = await axios.post(`${BackendUrl}/api/v1/user/signin`,{
                         email,
                         password
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
                     })
                     console.log(response);
                     localStorage.setItem("token", response.data.token)
                     if (response.data.success) {
-                        navigate("/dashboard")   
+                        navigate("/")   
                     }
                 }} />
                 <BottomWarning warning={"Don't have an account? "} link={"Sign Up"} />

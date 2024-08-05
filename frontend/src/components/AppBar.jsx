@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Heading from "./Heading";
 import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../../config";
 
 const AppBar = () => {
@@ -22,7 +22,9 @@ const AppBar = () => {
     <div className="bg-gray-200 rounded-b-2xl">
       <div className="flex justify-between mx-8 ">
         <div className="flex">
+          <Link to={'/'}>
           <Heading element={"Payment App"} />
+          </Link>
         </div>
         <div className="flex items-center">
           <p className=" font-semibold text-xl">Hello, {name}</p>

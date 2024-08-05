@@ -20,13 +20,13 @@ export default function () {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/');
+      navigate('/signin');
     }
   }, [navigate]);
   console.log(reRender);
 
   if (!name || !email) {
-   return navigate('/')
+   return navigate('/signin')
     // return <div>Loading...</div>; // or handle the case when name or email is not present
   }
   

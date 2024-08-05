@@ -45,7 +45,7 @@ export default function () {
                     })
                     localStorage.setItem("token", response.data.token)
                     if (response.data.success) {
-                        navigate("/dashboard")   
+                        navigate("/")   
                     }
                 }} />
                 <BottomWarning warning={"Already have an account?"} link={"Login"} />
