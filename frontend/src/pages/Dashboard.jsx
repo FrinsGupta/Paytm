@@ -12,6 +12,7 @@ export default function () {
   const [filter, setFilter] = useState("");
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(true);
   const [friendName, setFriendName] = useState("");
 
   const navigate = useNavigate();
@@ -33,12 +34,19 @@ export default function () {
       .then((res) => {
         setUsers(res.data.users);
         console.log(filter);
+        setLoading(false)
       });
   }, [filter]);
 
   // useEffect(()=>{
   //   console.log(users,filteredUsers);
   // },[users])
+
+  if (loading) {
+    return <div>
+      Loading...
+    </div>
+  }
 
   return (
     <div>
