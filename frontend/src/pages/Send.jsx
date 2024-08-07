@@ -7,12 +7,14 @@ import axios from 'axios'
 import AppBar from "../components/AppBar";
 import Balance from "../components/Balance";
 import { BackendUrl } from "../../config";
+import Loader from "../components/Loader";
 
 
 export default function () {
   const navigate = useNavigate();
   const[amount,setAmount]= useState(0);
   const [reRender, setRerender] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const name = searchParams.get("name")
   const email = searchParams.get("email")
@@ -32,8 +34,11 @@ export default function () {
   
   return (
   <>
+  <div className={`${loading?'block':'hidden'} absolute top-0 left-0 w-full h-full bg-gray-600 opacity-90 flex items-center justify-center`}>
+      <Loader/>
+      </div>
   <AppBar/>
-  <Balance render={reRender} />
+  <Balance render={reRender} setLoading={setLoading} />
     <div className=" flex justify-center items-center  h-[80%] rounded-3xl bg-gray-300">
       <div className=" bg-white flex flex-col items-center w-fit h-fit rounded-lg py-4 ">
         <Heading element={"Send Money"} />
