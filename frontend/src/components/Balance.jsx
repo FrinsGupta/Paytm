@@ -12,7 +12,8 @@ const Balance = ({render,setLoading}) => {
         }
       }).then((res) =>{
          setBalance(res.data.balance) 
-        setLoading(false)})
+        setLoading(false)
+      })
   },[render])
   // console.log(render);
   // console.log(balance);
