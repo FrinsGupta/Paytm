@@ -30,6 +30,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
     if (!receiptExist) {
       res.json({ msg: "Receiptant doesnt exist" });
       await session.abortTransaction();
+      res.json({success:false})
       return;
     }
 
@@ -40,6 +41,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
     if (userBalance.balance < amount) {
       res.json({ msg: "Insufficient Balance" });
       await session.abortTransaction();
+      res.json({success:false})
       return;
     }
 
@@ -64,10 +66,10 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         },
       }
     ).session(session);
-  res.json({ userBalUpdate, receiptBalUpdate });
+  res.json({ userBalUpdate, receiptBalUpdate, success:true });
 
   } catch (error) {
-    res.json({ msg: error });
+    res.json({ msg: error, success:false });
     console.log(error);
     await session.abortTransaction();
   }

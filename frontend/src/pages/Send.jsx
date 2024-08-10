@@ -77,7 +77,7 @@ export default function () {
                 )
                 .then(setRerender((c) => !c))
                 .then(() => {
-                  setLoading(false);
+                  // setLoading(false);
                   navigate("/success");
                 });
             }}

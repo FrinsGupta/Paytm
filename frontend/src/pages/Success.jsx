@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import AppBar from '../components/AppBar';
 
 const Success = () => {
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
