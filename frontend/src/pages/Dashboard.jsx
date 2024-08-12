@@ -51,7 +51,7 @@ export default function () {
       {users.map((element) => (
         <Users
           key={element._id}
-          name={element.firstName}
+          name={element.firstName+" "+element.lastName}
           email={element.email}
         />
       ))}

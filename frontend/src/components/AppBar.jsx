@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "./Button";
 import Heading from "./Heading";
 import axios from "axios";
 import { useEffect } from "react";
@@ -27,13 +28,11 @@ const AppBar = () => {
           </Link>
         </div>
         <div className="flex items-center">
-          <p className=" font-semibold text-xl">Hello, {name}</p>
-          <button onClick={()=>{
+          <p className=" font-semibold text-xl mr-10">Hello, {name}</p>
+            <button onClick={()=>{
             localStorage.removeItem('token')
             navigate('/signin')
-            }} className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1 ml-4">
-            {name.charAt(0)}
-          </button>
+            }} className='rounded-md bg-black px-3.5 py-1 font-semibold  text-white '>Logout</button>
         </div>
       </div>
     </div>
