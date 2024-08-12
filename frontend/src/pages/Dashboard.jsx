@@ -40,16 +40,6 @@ export default function () {
       });
   }, [filter]);
 
-  // useEffect(() => {
-  //   console.log("Loading state:", loading);
-  // }, [loading]);
-
-  // useEffect(()=>{
-  //   console.log(users,filteredUsers);
-  // },[users])
-
-  
-
   return (
     <div>
       <div className={`${loading?'block':'hidden'} absolute top-0 left-0 w-full h-full bg-gray-500 opacity-75 flex items-center justify-center`}>

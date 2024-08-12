@@ -64,7 +64,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         },
       }
     ).session(session);
-  res.json({ userBalUpdate, receiptBalUpdate, success:true });
+  res.json({msg:"Successful", userBalUpdate, receiptBalUpdate, success:true });
 
   } catch (error) {
     res.json({ msg: error, success:false });

@@ -28,7 +28,6 @@ export default function () {
 
   if (!name || !email) {
     return navigate("/signin");
-    // return <div>Loading...</div>; // or handle the case when name or email is not present
   }
 
   return (
@@ -62,7 +61,7 @@ export default function () {
             btname={"Initiate Transfer"}
             onClick={async (e) => {
               setLoading(true);
-              await axios
+                 await axios
                 .post(
                   `${BackendUrl}/api/v1/account/transfer`,
                   {
@@ -76,9 +75,11 @@ export default function () {
                   }
                 )
                 .then(setRerender((c) => !c))
-                .then(() => {
-                  // setLoading(false);
-                  navigate("/success");
+                .then((res) => {
+                  console.log(res.data.msg);
+                  if (res.data.success) {
+                    navigate("/success");
+                  }
                 });
             }}
           />

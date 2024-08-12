@@ -30,7 +30,7 @@ const AppBar = () => {
           <p className=" font-semibold text-xl">Hello, {name}</p>
           <button onClick={()=>{
             localStorage.removeItem('token')
-            navigate('/')
+            navigate('/signin')
             }} className="bg-gray-300 font-bold text-xl rounded-full px-3 py-1 ml-4">
             {name.charAt(0)}
           </button>

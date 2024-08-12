@@ -15,8 +15,7 @@ const Balance = ({render,setLoading}) => {
         setLoading(false)
       })
   },[render])
-  // console.log(render);
-  // console.log(balance);
+
   return (
     <>
     <div className='mx-8 my-6 flex font-bold text-2xl'>
